@@ -5,6 +5,7 @@ import Categories from "../Categories/Categories";
 import Slider from "../Slider/Slider";
 import Search from "../Search/Search";
 import styles from "./styles.module.css";
+import { useTheme } from "../../context/ThemeContext";
 
 interface Props {
   filters: IFilters;
@@ -12,13 +13,14 @@ interface Props {
 }
 
 const NewsFilters = ({ filters, changeFilter }: Props) => {
+  const { isDark } = useTheme();
   const { data: dataCategories } = useFetch<CategoriesApiResponse, null>(
     getCategproes
   );
   return (
     <div className={styles.filters}>
       {dataCategories ? (
-        <Slider>
+        <Slider isDark={isDark}>
           <Categories
             categories={dataCategories.categories}
             selectedCategory={filters.category}
